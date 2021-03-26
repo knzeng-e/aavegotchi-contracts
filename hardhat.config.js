@@ -44,7 +44,7 @@ module.exports = {
       blockGasLimit: 20000000,
       gasPrice: 1000000000
     },
-    gorli: {
+   /**  gorli: {
       url: process.env.GORLI,
       accounts: [process.env.SECRET],
       blockGasLimit: 20000000,
@@ -60,7 +60,7 @@ module.exports = {
       accounts: [process.env.SECRET],
       blockGasLimit: 20000000,
       gasPrice: 2100000000
-    }
+    }**/
   },
   gasReporter: {
     currency: 'USD',
