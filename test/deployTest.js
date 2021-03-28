@@ -1023,3 +1023,11 @@ function eightBitArrayToUint (array) {
   }
   return ethers.BigNumber.from('0x' + uint.join(''))
 }
+
+describe('Aavegotchi Pet functions', async function (){
+  it('Should Refuse Petting', async function (){
+    const tokenId = myPortals[0].tokenId;
+    await truffleAssert.reverts(aavegotchiGameFacet.pet([tokenId]), "AavegotchiGameFacet: Not owner of token nor approved nor petter")
+    //Add a successful call to pet function
+  })
+})
