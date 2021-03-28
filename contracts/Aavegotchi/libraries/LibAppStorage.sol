@@ -228,6 +228,8 @@ struct AppStorage {
     mapping(address => mapping(uint256 => mapping(address => uint256))) erc721TokenToListingId;
     // body wearableId => sleevesId
     mapping(uint256 => uint256) sleeves;
+    //Managing petters: addres => bool
+    mapping(address => bool) isPetter;
 }
 
 library LibAppStorage {
