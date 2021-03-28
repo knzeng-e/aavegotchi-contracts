@@ -187,4 +187,24 @@ contract AavegotchiGameFacet is Modifiers {
         s.aavegotchis[_tokenId].usedSkillPoints += totalUsed;
         emit SpendSkillpoints(_tokenId, _values);
     }
+
+    function canPet(address _petter, uint256 _tokenId) internal view returns(bool){
+        address _petOwner = s.aavegotchis[_tokenId].owner;
+        
+        return (_petter == _petOwner || s.operators[_petOwner][_petter] || s.approved[_tokenId] == _petter || s.isPetter[_petter]) ;
+    }
+
+    function addPetter(address _newPetter, _tokenId) s.onlyAavegotchiOwner(_tokenId) external {
+        s.isPetter[_newPetter] = true;
+    }
+
+    function pet(uint256[] memory _tokenIds) external {
+        uint256 currentToken;
+        for(currentToken  = 0; currentToken < _tokenIds.length; currentToken++){
+            require(canPet(LibMeta.msgSender(), currentToken),  "AavegotchiGameFacet: Not owner of token nor approved nor petter");
+            LibAavegotchi.interact(currentToken);
+
+        }
+
+    }
 }
