@@ -194,8 +194,12 @@ contract AavegotchiGameFacet is Modifiers {
         return (_petter == _petOwner || s.operators[_petOwner][_petter] || s.approved[_tokenId] == _petter || s.isPetter[_petter]) ;
     }
 
-    function addPetter(address _newPetter, _tokenId) s.onlyAavegotchiOwner(_tokenId) external {
+    function addPetter(address _newPetter, uint256 _tokenID) onlyAavegotchiOwner(_tokenID) external {
+        uint256 nbPetters = s.countPetters;
+        
         s.isPetter[_newPetter] = true;
+        s.petters[nbPetters] = _newPetter;
+        s.countPetters = s.countPetters++;
     }
 
     function pet(uint256[] memory _tokenIds) external {
@@ -203,7 +207,6 @@ contract AavegotchiGameFacet is Modifiers {
         for(currentToken  = 0; currentToken < _tokenIds.length; currentToken++){
             require(canPet(LibMeta.msgSender(), currentToken),  "AavegotchiGameFacet: Not owner of token nor approved nor petter");
             LibAavegotchi.interact(currentToken);
-
         }
 
     }
